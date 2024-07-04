@@ -1,7 +1,8 @@
 import { View } from 'react-native';
-import { BottomNavigator } from './shared/components/bottomNavigator/BottomNavigator';
 import { Container } from '@mui/material';
-import { GridEstablishment } from './shared/components/establishment/GridEstablishment';
+import { GridEstablishment } from './src/shared/components/establishment/GridEstablishment';
+import { BottomNavigator } from './src/shared/components/bottomNavigator/BottomNavigator';
+
 
 export default function App() {  
   return (
