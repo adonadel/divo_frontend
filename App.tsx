@@ -1,22 +1,27 @@
-import { View } from 'react-native';
-import { Container } from '@mui/material';
-import { GridEstablishment } from './src/shared/components/establishment/GridEstablishment';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { HomeScreen } from './src/screens/HomeScreen';
+import { FavoritesScreen } from './src/screens/FavoritesScreen';
 import { BottomNavigator } from './src/shared/components/bottomNavigator/BottomNavigator';
+import { LoginScreen } from './src/screens/LoginScreen';
+import { PromotionsScreen } from './src/screens/PromotionsScreen';
+import { SearchScreen } from './src/screens/SearchScreen';
 
+const Stack = createNativeStackNavigator();
 
-export default function App() {  
+export default function App() {
   return (
-    <View style={{      
-      width: '100%',
-      backgroundColor: 'white',            
-    }}>              
-          
-      <Container maxWidth="xl">        
-          <GridEstablishment/>        
-      </Container>
-      
-      
-      <BottomNavigator/>
-    </View>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Favorites" component={FavoritesScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Promotions" component={PromotionsScreen} />
+          <Stack.Screen name="Search" component={SearchScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <BottomNavigator />
+    </>
   );
 }

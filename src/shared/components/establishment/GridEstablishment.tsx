@@ -36,6 +36,28 @@ const data: EstablishmentTypes[] = [
         hasPromotion: true,
         pricingRanking: 3,
         rating: '2.5',
+    },
+    {
+        id: 4,
+        name: 'Nome estabelecimento',
+        description: 'Descrição estabelecimento',
+        profileImage: 'https://github.blog/wp-content/uploads/2023/10/Collaboration-DarkMode-2.png?fit=1200%2C630',
+        logoImage: 'https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU=w240-h480-rw',
+        hasFavorite: true,
+        hasPromotion: true,
+        pricingRanking: 3,
+        rating: '2.5',
+    },
+    {
+        id: 5,
+        name: 'Nome estabelecimento',
+        description: 'Descrição estabelecimento',
+        profileImage: 'https://github.blog/wp-content/uploads/2023/10/Collaboration-DarkMode-2.png?fit=1200%2C630',
+        logoImage: 'https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU=w240-h480-rw',
+        hasFavorite: true,
+        hasPromotion: true,
+        pricingRanking: 3,
+        rating: '2.5',
     }
 ];
 

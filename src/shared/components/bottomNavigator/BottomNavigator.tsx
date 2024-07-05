@@ -1,17 +1,19 @@
-import { FavoriteOutlined, Home, Login, Loyalty, Search } from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { useState } from "react";
-
+import { useNavigation } from "@react-navigation/native";
+import { Login, Loyalty, Home, FavoriteOutlined, Search } from "@mui/icons-material";
 
 export const BottomNavigator = () => {
-    const [value, setValue] = useState('home');
+    const navigation = useNavigation();
+    const [value, setValue] = useState('Home');
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
+        // navigation.navigate();       arrumar isso aqui
     }
 
     const styleButtonNavigator = {
-        borderRadius: '5rem'
+        borderRadius: '5rem',
     }
 
     return (
@@ -21,12 +23,11 @@ export const BottomNavigator = () => {
             left: 0,
             right: 0,
         }}>
-            <BottomNavigationAction label="Login" value="login" icon={<Login />} sx={styleButtonNavigator}/>
-            <BottomNavigationAction label="Promoções" value="sales" icon={<Loyalty />} sx={styleButtonNavigator} />
-            <BottomNavigationAction label="Início" value="home" icon={<Home />} sx={styleButtonNavigator} />
-            <BottomNavigationAction label="Favoritos" value="favorites" icon={<FavoriteOutlined />} sx={styleButtonNavigator} />
-            <BottomNavigationAction label="Pesquisar" value="search" icon={<Search />} sx={styleButtonNavigator} />
-
+            <BottomNavigationAction label="Login" value="Login" icon={<Login />} sx={styleButtonNavigator} />
+            <BottomNavigationAction label="Promoções" value="Promotions" icon={<Loyalty />} sx={styleButtonNavigator} />
+            <BottomNavigationAction label="Início" value="Home" icon={<Home />} sx={styleButtonNavigator} />
+            <BottomNavigationAction label="Favoritos" value="Favorites" icon={<FavoriteOutlined />} sx={styleButtonNavigator} />
+            <BottomNavigationAction label="Pesquisar" value="Search" icon={<Search />} sx={styleButtonNavigator} />
         </BottomNavigation>
     )
 };

@@ -16,7 +16,9 @@ export const CardEstablishment = (props: EstablishmentTypes) => {
                 display: 'flex',
                 flexDirection: 'column',
                 backgroundColor: 'white',
-                borderRadius: '1rem'
+                borderRadius: '1rem',
+                border: '1px solid #e0e0e0',
+                boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
             }}>
                 <Box sx={{
                     backgroundImage: `url(${props.profileImage})`,
@@ -86,14 +88,9 @@ export const CardEstablishment = (props: EstablishmentTypes) => {
                         display: 'flex',
                         gap: '1rem',
                         marginTop: '0.5rem',
-                    }}>
+                    }}>                        
                         <Tag 
-                            icon={<GpsFixed color="secondary" />} 
-                            text="3Km de você"
-                            backgroundColor="white" 
-                        />
-                        <Tag 
-                            icon={<AccessTime color="success" />}
+                            icon={<AccessTime color="primary" />}
                             text="Aberto até as 23h"
                             backgroundColor="white"
                         />
