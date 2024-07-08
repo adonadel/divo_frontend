@@ -1,6 +1,12 @@
-import { Text, View } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import { GridEstablishment } from '../shared/components/establishment/GridEstablishment';
 
 export default function Search() {
+
+  const [searchQuery, setSearchQuery] = React.useState('');
+
   return (
     <View style={{
       width: '100%',
@@ -10,7 +16,20 @@ export default function Search() {
       justifyContent: 'center',
       alignItems: 'center'
     }}>
-      <Text>Search</Text>
+
+      <Searchbar
+        style={{
+          width: '90%',
+          marginTop: 20,
+          marginBottom: 10,
+        }}
+        placeholder="Pesquisar"
+        onChangeText={setSearchQuery}
+        value={searchQuery}
+      />
+
+      <GridEstablishment />
+
     </View>
   );
 }
