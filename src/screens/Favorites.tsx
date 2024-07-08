@@ -1,4 +1,6 @@
 import { Text, View } from 'react-native';
+import { CardFavorites } from '../shared/components/favorites/CardFavorites';
+import { GridFavorites } from '../shared/components/favorites/GridFavorites';
 
 export default function Favorites() {
   return (
@@ -10,7 +12,7 @@ export default function Favorites() {
       justifyContent: 'center',
       alignItems: 'center'
     }}>
-      <Text>Favorites</Text>
+      <GridFavorites />
     </View>
   );
 }
