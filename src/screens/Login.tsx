@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native';
+import { TextInput } from 'react-native-paper';
 
-export default function Login() {  
+export default function Login() {
   return (
     <View style={{
       width: '100%',
@@ -10,7 +11,33 @@ export default function Login() {
       justifyContent: 'center',
       alignItems: 'center'
     }}>
-      <Text>Login</Text>
+
+      <View style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '80%',
+      }}>
+        <img src='/assets/logo-divo.svg' />
+        <View style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 20,          
+        }}>
+          <TextInput
+            label="E-mail"
+            mode='outlined'
+          />
+          <TextInput
+            label="Senha"
+            secureTextEntry
+            mode='outlined'
+          />
+        </View>
+      </View>
+
     </View>
   );
 }
