@@ -13,7 +13,7 @@ export const GridPromotions = () => {
                 flexWrap: 'wrap',
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: 10,
+                gap: 20,
                 padding: 20
             }}>
                 <CardPromotions />

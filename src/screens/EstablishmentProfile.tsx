@@ -1,5 +1,6 @@
 import { View, StyleSheet, Image, ScrollView } from 'react-native';
-import { Avatar, Button, Text, Card, Chip, IconButton, useTheme } from 'react-native-paper';
+import { Avatar, Text, Card, Chip, IconButton, useTheme } from 'react-native-paper';
+import { GridProducts } from '../shared/components/products/GridProducts';
 
 export default function EstablishmentProfile() {
   const styles = StyleSheet.create({
@@ -46,6 +47,7 @@ export default function EstablishmentProfile() {
 
     iconButton: {
       position: 'absolute',
+      backgroundColor: 'white',
       top: 140,
       right: 20,
       zIndex: 1
@@ -65,6 +67,8 @@ export default function EstablishmentProfile() {
     iconChip: {
       transform: [{ scale: 0.8 }],
       position: 'absolute',
+      backgroundColor: 'white',
+      borderColor: 'grey',
       borderRadius: 100,
       bottom: -15,
       zIndex: 1
@@ -97,6 +101,7 @@ export default function EstablishmentProfile() {
             <Text style={{
               fontSize: 12,
               fontWeight: 'bold',
+             
             }} variant='bodyMedium'>4.2</Text>
           </Chip>
         </View>
@@ -121,13 +126,14 @@ export default function EstablishmentProfile() {
             color: 'gray'
           }} variant="bodyMedium">Aberto de 12h - 21h</Text>
 
-          <Chip style={{
+          <Chip style={{            
             marginTop: 10,
+            backgroundColor: useTheme().colors.primary,
           }}>
             <Text style={{
               fontSize: 12,
-              fontWeight: 'bold',
-              color: useTheme().colors.tertiary,
+              fontWeight: 'normal',
+              color: 'white',              
             }} variant='bodyMedium'>
               650, R. Des. Pedro Silva - Comerciario, Criciúma - SC, 88802-300
             </Text>
@@ -143,28 +149,24 @@ export default function EstablishmentProfile() {
 
       <View style={{
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexDirection: 'column',                
         padding: 10,
-        marginTop: 10,
+        marginTop: 30,
+        marginBottom: 10,
       }}>
         <Text variant="titleLarge" style={{
-          fontSize: 20,
+          fontSize: 26,
           fontWeight: 'bold',
+          color: useTheme().colors.primary
         }}>Produtos</Text>
         <Text style={{
-          fontSize: 12,
-          fontWeight: 'bold',
+          fontSize: 14,
+          fontWeight: 'normal',
           color: 'gray'
         }} variant="bodyMedium">Catálogo de produtos</Text>
       </View>
-      <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-      <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-      <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-      <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-      <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-      <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
+     
+     <GridProducts />
 
     </ScrollView>
   );

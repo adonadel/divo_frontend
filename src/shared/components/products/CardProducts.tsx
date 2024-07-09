@@ -1,9 +1,9 @@
-import { StyleSheet, View } from "react-native"
-import { Avatar, Button, Card, Chip, IconButton, Paragraph, Text } from "react-native-paper"
+import { StyleSheet, View } from "react-native";
+import { Card, Chip, Text } from "react-native-paper"
 
 
+export const CardProducts: React.FC = () => {   
 
-export const CardFavorites = () => {
     const styles = StyleSheet.create({
         card: {
             width: '100%',
@@ -31,7 +31,7 @@ export const CardFavorites = () => {
         },
         cardCover: {
             width: '100%',
-            height: 120,
+            height: 200,
         },
 
         avatar: {
@@ -75,46 +75,50 @@ export const CardFavorites = () => {
 
     return (
         <Card style={styles.card}>
-            <View style={styles.profile}>
-                <Avatar.Image style={styles.avatar} size={60} source={{ uri: 'https://picsum.photos/700' }} />
-                <Chip style={styles.iconChip} icon="star">
+                      
+            <Card.Cover style={styles.cardCover} source={{ uri: 'https://picsum.photos/700' }} />
+            
+            <Chip style={{                
+                position: 'absolute',
+                backgroundColor: 'white',
+                borderRadius: 100,
+                right: 10,
+                top: 15,
+                zIndex: 1            
+            }} icon="star" >Promoção</Chip>
+
+            <Card.Content style={styles.cardContent}>
+
+                <Text variant="titleLarge" style={{
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                }}>Nome do produto</Text>
+                
+            </Card.Content>
+
+            <View style={{
+                width: '100%',
+            }}>
+                <Chip>
                     <Text style={{
                         fontSize: 12,
                         fontWeight: 'bold',
-                    }} variant='bodyMedium'>4.2</Text>
+                        color: 'grey',
+                        marginRight: 10,
+                        textDecorationLine: 'line-through',
+                    }}>
+                        R$ 250,00
+                    </Text>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        color: '#CC5803'
+                    }}>
+                        R$ 200,00
+                    </Text>
                 </Chip>
             </View>
-
-            <IconButton
-                style={styles.iconButton}
-                icon="heart"
-                mode='contained'
-
-                size={20}
-                onPress={() => console.log('Pressed')}
-            />
-
-            <Card.Cover style={styles.cardCover} source={{ uri: 'https://picsum.photos/700' }} />
-            <Card.Content style={styles.cardContent}>
-                <Text variant="titleLarge" style={{
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                }}>Bar do zé</Text>
-                <Text style={{
-                    fontSize: 12,
-                    fontWeight: 'bold',
-                    color: 'gray'
-                }} variant="bodyMedium">Aberto de 12h - 21h</Text>
-            </Card.Content>
-            <Card.Actions style={styles.cardActions}>
-                <Button mode="contained" style={styles.cardButton}>
-                    <Text style={{
-                        color: 'white',
-                        fontSize: 15,
-                        fontWeight: 'bold'
-                    }}>Abrir perfil</Text>
-                </Button>
-            </Card.Actions>
         </Card>
-    )
+
+    );
 }
