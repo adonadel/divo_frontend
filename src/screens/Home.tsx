@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import CardEstablishment from '../shared/components/establishment/CardEstablishment';
+import { View } from 'react-native';
 import { GridEstablishment } from '../shared/components/establishment/GridEstablishment';
 
 export default function Home() {

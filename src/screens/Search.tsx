@@ -12,9 +12,7 @@ export default function Search() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'
-    }}>
-
-      
+    }}>      
       <GridEstablishment />
     </View>
   );

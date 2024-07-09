@@ -1,5 +1,4 @@
-import { View, Text } from 'react-native';
-import { CardPromotions } from '../shared/components/promotions/CardPromotions';
+import { View } from 'react-native';
 import { GridPromotions } from '../shared/components/promotions/GridPromotions';
 
 export default function Promotions() {  

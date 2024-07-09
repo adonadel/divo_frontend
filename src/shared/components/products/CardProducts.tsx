@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import { Card, Chip, Text } from "react-native-paper"
+import { ProductsType } from "./ProductsType";
 
-
-export const CardProducts: React.FC = () => {   
+export const CardProducts = (props: ProductsType) => {   
 
     const styles = StyleSheet.create({
         card: {
@@ -76,23 +76,26 @@ export const CardProducts: React.FC = () => {
     return (
         <Card style={styles.card}>
                       
-            <Card.Cover style={styles.cardCover} source={{ uri: 'https://picsum.photos/700' }} />
+            <Card.Cover style={styles.cardCover} source={{ uri: props.imageSrc }} />
             
-            <Chip style={{                
-                position: 'absolute',
-                backgroundColor: 'white',
-                borderRadius: 100,
-                right: 10,
-                top: 15,
-                zIndex: 1            
-            }} icon="star" >Promoção</Chip>
+            {
+                props.promotion &&
+                <Chip style={{                
+                    position: 'absolute',
+                    backgroundColor: 'white',
+                    borderRadius: 100,
+                    right: 10,
+                    top: 15,
+                    zIndex: 1            
+                }} icon="star" >Promoção</Chip>
+            }
 
             <Card.Content style={styles.cardContent}>
 
                 <Text variant="titleLarge" style={{
                     fontSize: 18,
                     fontWeight: 'bold',
-                }}>Nome do produto</Text>
+                }}>{props.name}</Text>
                 
             </Card.Content>
 
@@ -100,21 +103,29 @@ export const CardProducts: React.FC = () => {
                 width: '100%',
             }}>
                 <Chip>
-                    <Text style={{
-                        fontSize: 12,
-                        fontWeight: 'bold',
-                        color: 'grey',
-                        marginRight: 10,
-                        textDecorationLine: 'line-through',
-                    }}>
-                        R$ 250,00
-                    </Text>
+                    {
+                        props.promotion &&
+                        <Text style={{
+                            fontSize: 12,
+                            fontWeight: 'bold',
+                            color: 'grey',
+                            marginRight: 10,
+                            textDecorationLine: 'line-through',
+                        }}>
+                           {
+                            `R$ ${props.value.toFixed(2)}`
+                           } 
+                        </Text>
+
+                    }
                     <Text style={{
                         fontSize: 20,
                         fontWeight: 'bold',
                         color: '#CC5803'
                     }}>
-                        R$ 200,00
+                        {
+                            `R$ ${props.valueWithPromotion ? props.valueWithPromotion.toFixed(2) : props.value.toFixed(2)}`
+                        }
                     </Text>
                 </Chip>
             </View>
