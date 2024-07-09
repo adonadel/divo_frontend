@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Chip, IconButton, Text, TextInput } from 'react-native-paper';
 
-const CardEstablishment: React.FC = () => {    
+const CardEstablishment: React.FC = () => {
 
     const styles = StyleSheet.create({
         card: {
@@ -46,6 +46,7 @@ const CardEstablishment: React.FC = () => {
 
         iconButton: {
             position: 'absolute',
+            backgroundColor: 'white',
             top: 10,
             right: 10,
             zIndex: 1
@@ -65,6 +66,7 @@ const CardEstablishment: React.FC = () => {
         iconChip: {
             transform: [{ scale: 0.8 }],
             position: 'absolute',
+            backgroundColor: 'white',
             borderRadius: 100,
             bottom: -15,
             zIndex: 1
@@ -87,6 +89,7 @@ const CardEstablishment: React.FC = () => {
                 style={styles.iconButton}
                 icon="heart-outline"
                 mode='contained'
+
                 size={20}
                 onPress={() => console.log('Pressed')}
             />
@@ -95,17 +98,21 @@ const CardEstablishment: React.FC = () => {
             <Card.Content style={styles.cardContent}>
                 <Text variant="titleLarge" style={{
                     fontSize: 15,
-                    fontWeight: 'bold',                    
+                    fontWeight: 'bold',
                 }}>Bar do zé</Text>
                 <Text style={{
                     fontSize: 12,
                     fontWeight: 'bold',
-                    color: 'gray'                
+                    color: 'gray'
                 }} variant="bodyMedium">Aberto de 12h - 21h</Text>
             </Card.Content>
             <Card.Actions style={styles.cardActions}>
-                <Button style={styles.cardButton}>
-                    Conhecer
+                <Button mode="contained" style={styles.cardButton}>
+                    <Text style={{
+                        color: 'white',
+                        fontSize: 15,
+                        fontWeight: 'bold'
+                    }}>Conheça</Text>
                 </Button>
             </Card.Actions>
         </Card>
