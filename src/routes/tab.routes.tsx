@@ -5,6 +5,8 @@ import Home from "../screens/Home";
 import Login from "../screens/Login";
 import Promotions from "../screens/Promotions";
 import Search from "../screens/Search";
+import UserProfile from '../screens/UserProfile';
+import EstablishmentProfile from '../screens/EstablishmentProfile';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,11 +14,11 @@ export default function TabRoutes() {
     return (
         <Tab.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
             <Tab.Screen
-                name="Login"
-                component={Login}
+                name="Perfil"
+                component={EstablishmentProfile}
                 options={{
-                    tabBarIcon: ({ color, size }) => <Entypo name="login" color={color} size={size} />,
-                    tabBarLabel: 'Login'
+                    tabBarIcon: ({ color, size }) => <Entypo name="circle" color={color} size={size} />,
+                    tabBarLabel: 'Perfil'
                 }}
             />
             <Tab.Screen
