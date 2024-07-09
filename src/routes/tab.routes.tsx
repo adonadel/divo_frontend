@@ -2,10 +2,8 @@ import { Entypo } from '@expo/vector-icons';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Favorites from "../screens/Favorites";
 import Home from "../screens/Home";
-import Login from "../screens/Login";
 import Promotions from "../screens/Promotions";
 import Search from "../screens/Search";
-import UserProfile from '../screens/UserProfile';
 import EstablishmentProfile from '../screens/EstablishmentProfile';
 
 const Tab = createBottomTabNavigator();

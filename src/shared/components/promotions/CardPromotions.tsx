@@ -1,8 +1,9 @@
 import { StyleSheet, View } from "react-native"
 import { Avatar, Button, Card, Chip, Divider, Text, useTheme } from "react-native-paper"
+import { ProductsType } from "../products/ProductsType";
 
 
-export const CardPromotions = () => {
+export const CardPromotions = (props: ProductsType) => {
     const styles = StyleSheet.create({
         card: {
             width: '100%',
@@ -71,8 +72,8 @@ export const CardPromotions = () => {
         }
 
     })
-    return (
-   
+    
+    return (   
         <Card style={styles.card}>
             <Card.Content>
                 <View style={{
@@ -81,7 +82,7 @@ export const CardPromotions = () => {
                     alignItems: 'center',
                     gap: 15
                 }}>
-                    <Avatar.Image source={{ uri: 'https://picsum.photos/200' }} size={60} style={styles.avatar} />
+                    <Avatar.Image source={{ uri: props.establishment?.profileSrc }} size={60} style={styles.avatar} />
                     <View style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -92,7 +93,7 @@ export const CardPromotions = () => {
                         <Text style={{
                             fontSize: 15,
                             fontWeight: 'bold',
-                        }}>Restaurante do Alamar</Text>
+                        }}>{props.establishment?.name}</Text>
                         <Chip style={{
                             backgroundColor: '#CC580325',
                             borderRadius: 100,
@@ -101,18 +102,17 @@ export const CardPromotions = () => {
                             <Text style={{
                                 fontSize: 12,
                                 fontWeight: 'bold',
-                            }} variant='bodyMedium'>4.2</Text>
+                            }} variant='bodyMedium'>{props.establishment?.ratting}</Text>
                         </Chip>
                     </View>
                 </View>
                 <Divider style={{
                     marginTop: 15,
                     marginBottom: 10
-
                 }} />
                 <View style={styles.cardContent}>
-                    <Text style={styles.cardTitle}>Nome do produto</Text>
-                    <Card.Cover source={{ uri: 'https://kalejunkie.com/wp-content/uploads/2023/12/KJ_Beef-Tenderloin-6-1638x2048.jpg' }} />
+                    <Text style={styles.cardTitle}>{props.name}</Text>
+                    <Card.Cover source={{ uri: props.imageSrc }} />
                     <Chip style={{
                         position: 'absolute',
                         backgroundColor: 'white',
@@ -120,8 +120,8 @@ export const CardPromotions = () => {
                         right: 10,
                         top: 45,
                         zIndex: 1
-                    }} icon="star" >50% de desconto</Chip>
-                    <Text style={styles.cardDescription}>O melhor prato da região com 50% de desconto. de 59,90 para 29,90 reais.</Text>
+                    }} icon="star" >{props.promotion?.percent}% de desconto</Chip>
+                    <Text style={styles.cardDescription}>{props.description}</Text>
                 </View>
                 <View>
                     <Card.Actions style={styles.cardActions}>
@@ -130,12 +130,11 @@ export const CardPromotions = () => {
                                 color: 'white',
                                 fontSize: 15,
                                 fontWeight: 'bold'
-                            }}>Conheça</Text>
+                            }}>Conhecer {props.establishment?.name}</Text>
                         </Button>
                     </Card.Actions>
                 </View>
             </Card.Content>
         </Card>
-
     );
 }

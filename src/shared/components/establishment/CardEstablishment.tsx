@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Avatar, Button, Card, Chip, IconButton, Text, TextInput } from 'react-native-paper';
+import { Avatar, Button, Card, Chip, IconButton, Text } from 'react-native-paper';
+import { EstablishmentType } from './EstablishmentType';
 
-const CardEstablishment: React.FC = () => {
-
+const CardEstablishment = (props : EstablishmentType) => {
+    
     const styles = StyleSheet.create({
         card: {
             width: '100%',
@@ -73,38 +74,41 @@ const CardEstablishment: React.FC = () => {
         }
     })
 
+    const toggleFavorite = () => {
+        console.log('Favorite');
+    }
+
     return (
         <Card style={styles.card}>
             <View style={styles.profile}>
-                <Avatar.Image style={styles.avatar} size={60} source={{ uri: 'https://picsum.photos/700' }} />
+                <Avatar.Image style={styles.avatar} size={60} source={{ uri: props.profileSrc }} />
                 <Chip style={styles.iconChip} icon="star">
                     <Text style={{
                         fontSize: 12,
                         fontWeight: 'bold',
-                    }} variant='bodyMedium'>4.2</Text>
+                    }} variant='bodyMedium'>{props.rating}</Text>
                 </Chip>
             </View>
 
             <IconButton
                 style={styles.iconButton}
-                icon="heart-outline"
+                icon={props.favorite ? 'heart' : 'heart-outline'}
                 mode='contained'
-
                 size={20}
-                onPress={() => console.log('Pressed')}
+                onPress={toggleFavorite}
             />
 
-            <Card.Cover style={styles.cardCover} source={{ uri: 'https://picsum.photos/700' }} />
+            <Card.Cover style={styles.cardCover} source={{ uri: props.mediaSrc }} />
             <Card.Content style={styles.cardContent}>
                 <Text variant="titleLarge" style={{
                     fontSize: 15,
                     fontWeight: 'bold',
-                }}>Bar do zé</Text>
+                }}>{props.name}</Text>
                 <Text style={{
                     fontSize: 12,
                     fontWeight: 'bold',
                     color: 'gray'
-                }} variant="bodyMedium">Aberto de 12h - 21h</Text>
+                }} variant="bodyMedium">Aberto de {props.openHours}</Text>
             </Card.Content>
             <Card.Actions style={styles.cardActions}>
                 <Button mode="contained" style={styles.cardButton}>
@@ -112,11 +116,10 @@ const CardEstablishment: React.FC = () => {
                         color: 'white',
                         fontSize: 15,
                         fontWeight: 'bold'
-                    }}>Conheça</Text>
+                    }}>Abrir perfil</Text>
                 </Button>
             </Card.Actions>
         </Card>
-
     );
 };
 
