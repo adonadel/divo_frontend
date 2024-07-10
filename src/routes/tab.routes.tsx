@@ -2,23 +2,15 @@ import { Entypo } from '@expo/vector-icons';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Favorites from "../screens/Favorites";
 import Home from "../screens/Home";
-import Login from "../screens/Login";
 import Promotions from "../screens/Promotions";
 import Search from "../screens/Search";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
+
     return (
         <Tab.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-            <Tab.Screen
-                name="Login"
-                component={Login}
-                options={{
-                    tabBarIcon: ({ color, size }) => <Entypo name="login" color={color} size={size} />,
-                    tabBarLabel: 'Login'
-                }}
-            />
             <Tab.Screen
                 name="Promotions"
                 component={Promotions}

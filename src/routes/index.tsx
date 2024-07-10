@@ -1,15 +1,26 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { useColorScheme } from "react-native";
-import { DarkTheme } from "../shared/theme/DarkTheme";
-import { LightTheme } from "../shared/theme/LightTheme";
+import React from "react";
+import { View } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
+import { useAuth } from "../contexts/auth";
+import StackRoutes from "./stack.routes";
 import TabRoutes from "./tab.routes";
 
-export default function Routes() {
-    const scheme = useColorScheme();
+const Routes: React.FC = () => {
+    const { signed, loading } = useAuth();
+
+    if (loading) {
+        <View>
+            <ActivityIndicator size="large" />
+        </View>
+    }
 
     return (
-        <NavigationContainer theme={scheme === 'dark' ? DarkTheme : LightTheme}>
+        (signed ?
             <TabRoutes />
-        </NavigationContainer>
+            :
+            <StackRoutes />
+        )
     )
 }
+
+export default Routes;
