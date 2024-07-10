@@ -1,9 +1,9 @@
-import { Image, StyleSheet, View } from "react-native"
-import { Avatar, Button, Card, Chip, Divider, IconButton, Text } from "react-native-paper"
-import CardTitle from "react-native-paper/lib/typescript/components/Card/CardTitle";
+import { StyleSheet, View } from "react-native"
+import { Avatar, Button, Card, Chip, Divider, Text, useTheme } from "react-native-paper"
+import { ProductsType } from "../products/ProductsType";
 
 
-export const CardPromotions = () => {
+export const CardPromotions = (props: ProductsType) => {
     const styles = StyleSheet.create({
         card: {
             width: '100%',
@@ -66,66 +66,75 @@ export const CardPromotions = () => {
 
         cardTitle: {
             fontSize: 20,
+            color: useTheme().colors.primary,
             fontWeight: 'bold',
             marginBottom: 10
         }
 
     })
-    return (
-        <>
-            <Card style={styles.card}>
-                <Card.Content>
+    
+    return (   
+        <Card style={styles.card}>
+            <Card.Content>
+                <View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 15
+                }}>
+                    <Avatar.Image source={{ uri: props.establishment?.profileSrc }} size={60} style={styles.avatar} />
                     <View style={{
                         display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 15
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        gap: 5,
+                        alignItems: 'flex-start',
                     }}>
-                        <Avatar.Image source={{ uri: 'https://picsum.photos/200' }} size={60} style={styles.avatar} />
-                        <View style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'flex-start',
-                            gap: 5,
-                            alignItems: 'flex-start',
-                        }}>
+                        <Text style={{
+                            fontSize: 15,
+                            fontWeight: 'bold',
+                        }}>{props.establishment?.name}</Text>
+                        <Chip style={{
+                            backgroundColor: '#CC580325',
+                            borderRadius: 100,
+                            zIndex: 1
+                        }} icon="star">
                             <Text style={{
-                                fontSize: 15,
+                                fontSize: 12,
                                 fontWeight: 'bold',
-                            }}>Restaurante do Alamar</Text>
-                            <Chip style={{
-                                backgroundColor: 'white',
-
-
-                                borderRadius: 100,
-                                zIndex: 1
-                            }} icon="star">
-                                <Text style={{
-                                    fontSize: 12,
-                                    fontWeight: 'bold',
-                                }} variant='bodyMedium'>4.2</Text>
-                            </Chip>
-                        </View>
+                            }} variant='bodyMedium'>{props.establishment?.ratting}</Text>
+                        </Chip>
                     </View>
-                    <Divider style={{
-                        marginTop: 15,
-                        marginBottom: 10
-
-                    }} />
-                    <View style={styles.cardContent}>
-                        <Text style={styles.cardTitle}>50% de desconto!</Text>
-                        <Card.Cover source={{ uri: 'https://kalejunkie.com/wp-content/uploads/2023/12/KJ_Beef-Tenderloin-6-1638x2048.jpg' }} />
-                        <Text style={styles.cardDescription}>O melhor prato da região com 50% de desconto. de 59,90 para 29,90 reais.</Text>
-                    </View>
-                    <View>
-                        <Card.Actions style={styles.cardActions}>
-                            <Button mode="contained" style={styles.cardButton}>
-                                Conhecer
-                            </Button>
-                        </Card.Actions>
-                    </View>
-                </Card.Content>
-            </Card>
-        </>
+                </View>
+                <Divider style={{
+                    marginTop: 15,
+                    marginBottom: 10
+                }} />
+                <View style={styles.cardContent}>
+                    <Text style={styles.cardTitle}>{props.name}</Text>
+                    <Card.Cover source={{ uri: props.imageSrc }} />
+                    <Chip style={{
+                        position: 'absolute',
+                        backgroundColor: 'white',
+                        borderRadius: 100,
+                        right: 10,
+                        top: 45,
+                        zIndex: 1
+                    }} icon="star" >{props.promotion?.percent}% de desconto</Chip>
+                    <Text style={styles.cardDescription}>{props.description}</Text>
+                </View>
+                <View>
+                    <Card.Actions style={styles.cardActions}>
+                        <Button mode="contained" style={styles.cardButton}>
+                            <Text style={{
+                                color: 'white',
+                                fontSize: 15,
+                                fontWeight: 'bold'
+                            }}>Conhecer {props.establishment?.name}</Text>
+                        </Button>
+                    </Card.Actions>
+                </View>
+            </Card.Content>
+        </Card>
     );
 }

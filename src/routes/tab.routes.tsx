@@ -4,6 +4,7 @@ import Favorites from "../screens/Favorites";
 import Home from "../screens/Home";
 import Promotions from "../screens/Promotions";
 import Search from "../screens/Search";
+import EstablishmentProfile from '../screens/EstablishmentProfile';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,6 +12,14 @@ export default function TabRoutes() {
 
     return (
         <Tab.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+            <Tab.Screen
+                name="Perfil"
+                component={EstablishmentProfile}
+                options={{
+                    tabBarIcon: ({ color, size }) => <Entypo name="circle" color={color} size={size} />,
+                    tabBarLabel: 'Perfil'
+                }}
+            />
             <Tab.Screen
                 name="Promotions"
                 component={Promotions}

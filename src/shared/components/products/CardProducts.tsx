@@ -1,10 +1,9 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Avatar, Button, Card, Chip, IconButton, Text } from 'react-native-paper';
-import { EstablishmentType } from './EstablishmentType';
+import { StyleSheet, View } from "react-native";
+import { Card, Chip, Text } from "react-native-paper"
+import { ProductsType } from "./ProductsType";
 
-const CardEstablishment = (props : EstablishmentType) => {
-    
+export const CardProducts = (props: ProductsType) => {   
+
     const styles = StyleSheet.create({
         card: {
             width: '100%',
@@ -32,7 +31,7 @@ const CardEstablishment = (props : EstablishmentType) => {
         },
         cardCover: {
             width: '100%',
-            height: 120,
+            height: 200,
         },
 
         avatar: {
@@ -74,53 +73,63 @@ const CardEstablishment = (props : EstablishmentType) => {
         }
     })
 
-    const toggleFavorite = () => {
-        console.log('Favorite');
-    }
-
     return (
         <Card style={styles.card}>
-            <View style={styles.profile}>
-                <Avatar.Image style={styles.avatar} size={60} source={{ uri: props.profileSrc }} />
-                <Chip style={styles.iconChip} icon="star">
-                    <Text style={{
-                        fontSize: 12,
-                        fontWeight: 'bold',
-                    }} variant='bodyMedium'>{props.rating}</Text>
-                </Chip>
-            </View>
+                      
+            <Card.Cover style={styles.cardCover} source={{ uri: props.imageSrc }} />
+            
+            {
+                props.promotion &&
+                <Chip style={{                
+                    position: 'absolute',
+                    backgroundColor: 'white',
+                    borderRadius: 100,
+                    right: 10,
+                    top: 15,
+                    zIndex: 1            
+                }} icon="star" >Promoção</Chip>
+            }
 
-            <IconButton
-                style={styles.iconButton}
-                icon={props.favorite ? 'heart' : 'heart-outline'}
-                mode='contained'
-                size={20}
-                onPress={toggleFavorite}
-            />
-
-            <Card.Cover style={styles.cardCover} source={{ uri: props.mediaSrc }} />
             <Card.Content style={styles.cardContent}>
+
                 <Text variant="titleLarge" style={{
-                    fontSize: 15,
+                    fontSize: 18,
                     fontWeight: 'bold',
                 }}>{props.name}</Text>
-                <Text style={{
-                    fontSize: 12,
-                    fontWeight: 'bold',
-                    color: 'gray'
-                }} variant="bodyMedium">Aberto de {props.openHours}</Text>
+                
             </Card.Content>
-            <Card.Actions style={styles.cardActions}>
-                <Button mode="contained" style={styles.cardButton}>
-                    <Text style={{
-                        color: 'white',
-                        fontSize: 15,
-                        fontWeight: 'bold'
-                    }}>Abrir perfil</Text>
-                </Button>
-            </Card.Actions>
-        </Card>
-    );
-};
 
-export default CardEstablishment;
+            <View style={{
+                width: '100%',
+            }}>
+                <Chip>
+                    {
+                        props.promotion &&
+                        <Text style={{
+                            fontSize: 12,
+                            fontWeight: 'bold',
+                            color: 'grey',
+                            marginRight: 10,
+                            textDecorationLine: 'line-through',
+                        }}>
+                           {
+                            `R$ ${props.value.toFixed(2)}`
+                           } 
+                        </Text>
+
+                    }
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        color: '#CC5803'
+                    }}>
+                        {
+                            `R$ ${props.valueWithPromotion ? props.valueWithPromotion.toFixed(2) : props.value.toFixed(2)}`
+                        }
+                    </Text>
+                </Chip>
+            </View>
+        </Card>
+
+    );
+}

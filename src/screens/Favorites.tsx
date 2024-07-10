@@ -1,5 +1,4 @@
-import { Text, View } from 'react-native';
-import { CardFavorites } from '../shared/components/favorites/CardFavorites';
+import { View } from 'react-native';
 import { GridFavorites } from '../shared/components/favorites/GridFavorites';
 
 export default function Favorites() {

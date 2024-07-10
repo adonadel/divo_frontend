@@ -1,7 +1,7 @@
 export const LightTheme = {
   dark: false,
   colors: {
-    primary: "rgb(255, 45, 85)",
+    primary: "#CC5803",
     background: "rgb(242, 242, 242)",
     card: "rgb(255, 255, 255)",
     text: "rgb(28, 28, 30)",
