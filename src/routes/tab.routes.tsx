@@ -9,6 +9,7 @@ import EstablishmentProfile from '../screens/EstablishmentProfile';
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
+
     return (
         <Tab.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
             <Tab.Screen
