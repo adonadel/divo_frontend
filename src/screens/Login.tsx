@@ -3,13 +3,14 @@ import { Controller, useForm } from 'react-hook-form';
 import { Image, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useAuth } from '../contexts/auth';
+import { LightTheme } from '../shared/theme/LightTheme';
 
 export interface ILogin {
   email: string;
   password: string;
 }
 
-export default function Login() {
+export default function Login({ navigation }: any) {
   const { control, handleSubmit, formState: { errors } } = useForm<ILogin>();
   const { signIn } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
@@ -61,8 +62,8 @@ export default function Login() {
               <TextInput
                 label='Senha'
                 mode='outlined'
-                secureTextEntry={!showPassword} // Toggle secureTextEntry based on showPassword state
-                right={<TextInput.Icon icon={showPassword ? 'eye-off' : 'eye'} onPress={togglePasswordVisibility} />} // Toggle eye icon based on showPassword state
+                secureTextEntry={!showPassword}
+                right={<TextInput.Icon icon={showPassword ? 'eye-off' : 'eye'} onPress={togglePasswordVisibility} />}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -77,8 +78,8 @@ export default function Login() {
           <View style={styles.registerContainer}>
             <Text style={styles.registerText}>Como você deseja se cadastrar?</Text>
             <View style={styles.buttonGroup}>
-              <Button mode='contained' onPress={() => (console.log("Estabelecimento"))} style={styles.registerButton}>Estabelecimento</Button>
-              <Button mode='contained' onPress={() => (console.log("Usuario"))} style={styles.registerButton}>Usuário</Button>
+              <Button mode='contained' disabled onPress={() => navigation.navigate('RegisterEstablishment')} style={[styles.registerButton, { backgroundColor: LightTheme.colors.disabled }]}>Estabelecimento</Button>
+              <Button mode='contained' onPress={() => navigation.navigate('RegisterUser')} style={styles.registerButton}>Usuário</Button>
             </View>
           </View>
         </View>
