@@ -1,7 +1,6 @@
 import { View } from "react-native"
 import { CardProducts } from "./CardProducts"
 import { useEffect, useState } from "react"
-import { EstablishmentType } from "../establishment/EstablishmentType"
 import axios from "axios"
 import { ProductsType } from "./ProductsType"
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -10,15 +9,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 export const GridProducts: React.FC = () => {
 
     const [data, setData] = useState<ProductsType[]>([]);        
-
-
-    const establishmentId = 1;
+    const apiUrl = process.env.EXPO_PUBLIC_API_URL;    
 
     useEffect(() => {
         const fetchData = async () => {
             const token = await AsyncStorage.getItem('@DIVOAuth:token');
             try {
-                const response = await axios.get('http://192.168.0.158:8080/api/establishments/1/products', {
+                const response = await axios.get(`${apiUrl}/api/establishments/1/products`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

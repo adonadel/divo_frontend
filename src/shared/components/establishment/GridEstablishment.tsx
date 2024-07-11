@@ -7,12 +7,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const GridEstablishment = () => {
     const [data, setData] = useState<EstablishmentType[]>([]);
+    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
     useEffect(() => {
         const fetchData = async () => {
             const token = await AsyncStorage.getItem('@DIVOAuth:token');
             try {
-                const response = await axios.get('http://192.168.0.158:8080/api/establishments', {
+                const response = await axios.get(`${apiUrl}/api/establishments`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

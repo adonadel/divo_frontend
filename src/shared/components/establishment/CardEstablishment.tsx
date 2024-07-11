@@ -79,6 +79,7 @@ const CardEstablishment = (props: EstablishmentType) => {
 
 
     const [isFavorited, setIsFavorited] = React.useState(props.is_favorited);
+    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 
     const toggleFavorite = () => {
@@ -86,7 +87,7 @@ const CardEstablishment = (props: EstablishmentType) => {
         const toggleFavoriteEstablishment = async (state: boolean) => {
             try {
                 const token = await AsyncStorage.getItem('@DIVOAuth:token');
-                await axios.put(`http://192.168.0.158:8080/api/establishments/${props.id}/${state ? 'favorite' : 'unfavorite'}/1`, [], {
+                await axios.put(`${apiUrl}/api/establishments/${props.id}/${state ? 'favorite' : 'unfavorite'}/1`, [], {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

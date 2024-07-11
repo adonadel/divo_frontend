@@ -82,7 +82,8 @@ export const CardPromotions = (props: ProductsType) => {
                     alignItems: 'center',
                     gap: 15
                 }}>
-                    <Avatar.Image source={{ uri: props.establishment?.profileSrc }} size={60} style={styles.avatar} />
+                    <Avatar.Image source={{ uri: props.establishment?.medias?.[0].fileName }} size={60} style={styles.avatar} />
+
                     <View style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -102,7 +103,7 @@ export const CardPromotions = (props: ProductsType) => {
                             <Text style={{
                                 fontSize: 12,
                                 fontWeight: 'bold',
-                            }} variant='bodyMedium'>{props.establishment?.ratting}</Text>
+                            }} variant='bodyMedium'>{props.establishment?.overall_rating.toFixed(1)}</Text>
                         </Chip>
                     </View>
                 </View>
