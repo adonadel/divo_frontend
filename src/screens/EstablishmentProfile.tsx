@@ -97,7 +97,7 @@ export default function EstablishmentProfile() {
   })
 
   const [data, setData] = useState<EstablishmentType>();
-
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
   const [isFavorited, setIsFavorited] = React.useState(data?.is_favorited);
   const id = 1;
@@ -108,7 +108,7 @@ export default function EstablishmentProfile() {
     const toggleFavoriteEstablishment = async (state: boolean) => {
       try {
         const token = await AsyncStorage.getItem('@DIVOAuth:token');
-        await axios.put(`http://192.168.0.158:8080/api/establishments/${id}/${state ? 'favorite' : 'unfavorite'}/1`, [], {
+        await axios.put(`${apiUrl}/api/establishments/${id}/${state ? 'favorite' : 'unfavorite'}/1`, [], {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -133,7 +133,7 @@ export default function EstablishmentProfile() {
     const fetchData = async () => {
       const token = await AsyncStorage.getItem('@DIVOAuth:token');
       try {
-        const response = await axios.get('http://192.168.0.158:8080/api/establishments/1', {
+        const response = await axios.get(`${apiUrl}/api/establishments/1`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

@@ -18,7 +18,7 @@ export const GridProducts: React.FC = () => {
         const fetchData = async () => {
             const token = await AsyncStorage.getItem('@DIVOAuth:token');
             try {
-                const response = await axios.get('http://192.168.0.158:8080/api/establishments/1/products', {
+                const response = await axios.get('http://127.0.0.1:8000/api/establishments/1/products', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

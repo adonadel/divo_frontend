@@ -86,7 +86,7 @@ const CardEstablishment = (props: EstablishmentType) => {
         const toggleFavoriteEstablishment = async (state: boolean) => {
             try {
                 const token = await AsyncStorage.getItem('@DIVOAuth:token');
-                await axios.put(`http://192.168.0.158:8080/api/establishments/${props.id}/${state ? 'favorite' : 'unfavorite'}/1`, [], {
+                await axios.put(`http://127.0.0.1:8000/api/establishments/${props.id}/${state ? 'favorite' : 'unfavorite'}/1`, [], {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
