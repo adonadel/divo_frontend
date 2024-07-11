@@ -1,3 +1,5 @@
+import { TextInput } from "react-native-paper";
+
 export const LightTheme = {
   dark: false,
   colors: {
@@ -8,4 +10,5 @@ export const LightTheme = {
     border: "rgb(199, 199, 204)",
     notification: "rgb(255, 69, 58)",
   },
+  roundness: 8
 };
