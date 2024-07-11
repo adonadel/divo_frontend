@@ -15,5 +15,14 @@ export interface ProductsType {
     valueWithPromotion?: number;    
     promotion?: PromotionType;    
     establishment?: EstablishmentType;
+    medias?: mediasType[]
+}
+
+interface mediasType {
+    fileName: string,
+    filename_id: number,
+    width: number,
+    height: number,
+    display_name: string,
 }
 
