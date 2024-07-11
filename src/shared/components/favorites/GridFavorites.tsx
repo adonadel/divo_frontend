@@ -1,46 +1,35 @@
 import { ScrollView, View } from "react-native";
 import CardEstablishment from "../establishment/CardEstablishment";
+import { useEffect, useState } from "react";
+import { EstablishmentType } from "../establishment/EstablishmentType";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const GridFavorites = () => {
 
-    const data = [
-        {
-            id: 1,
-            name: 'Burger King',
-            mediaSrc: 'https://www.burgerking.com.br/imagens/produtos/whopper.png',
-            profileSrc: 'https://www.subway.com/subway-maint/images/w2-sandwiches_v1.jpg',
-            rating: 4.5,
-            openHours: '08:00 - 22:00',
-            favorite: true
-        },
-        {
-            id: 2,
-            name: 'McDonalds',
-            mediaSrc: 'https://www.mcdonalds.com.br/content/dam/br/mcdonalds-com-br/items/hero/desktop/hero-big-mac.png',
-            profileSrc: 'https://www.subway.com/subway-maint/images/w2-sandwiches_v1.jpg',
-            rating: 4.5,
-            openHours: '08:00 - 22:00',
-            favorite: true
-        },
-        {
-            id: 3,
-            name: 'Pizza Hut',
-            mediaSrc: 'https://www.pizzahut.com.br/wp-content/uploads/2020/08/PH_Banner_1920x1080_01.jpg',
-            profileSrc: 'https://www.subway.com/subway-maint/images/w2-sandwiches_v1.jpg',
-            rating: 4.5,
-            openHours: '08:00 - 22:00',
-            favorite: true 
-        },
-        {
-            id: 4,
-            name: 'Subway',
-            mediaSrc: 'https://www.subway.com/subway-maint/images/w2-sandwiches_v1.jpg',
-            profileSrc: 'https://www.subway.com/subway-maint/images/w2-sandwiches_v1.jpg',
-            rating: 4.5,
-            openHours: '08:00 - 22:00',
-            favorite: true
-        },        
-    ]
+    const [data, setData] = useState<EstablishmentType[]>([]);        
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = await AsyncStorage.getItem('@DIVOAuth:token');
+            try {
+                const response = await axios.get('http://192.168.0.158:8080/api/establishments/1/favorites', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                
+                const data = response.data;                
+                setData(data);                    
+            } catch (error) {
+                console.error("Erro ao buscar estabelecimentos:", error);
+            }
+        };
+        
+        fetchData();            
+    }, []);
+
+
 
     return (
         <ScrollView>
@@ -56,7 +45,7 @@ export const GridFavorites = () => {
 
             {
                 data && data.map((item, index) =>                     
-                    <CardEstablishment id={item.id} favorite={item.favorite} name={item.name} mediaSrc={item.mediaSrc} openHours={item.openHours} rating={item.rating} profileSrc={item.profileSrc} key={index}/>
+                    <CardEstablishment {...item} is_favorited={true} key={index}/>
                 )
             }    
 

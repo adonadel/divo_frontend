@@ -1,6 +1,10 @@
 import { View, StyleSheet, Image, ScrollView } from 'react-native';
 import { Avatar, Text, Card, Chip, IconButton, useTheme } from 'react-native-paper';
 import { GridProducts } from '../shared/components/products/GridProducts';
+import React, { useEffect, useState } from 'react';
+import { EstablishmentType } from '../shared/components/establishment/EstablishmentType';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function EstablishmentProfile() {
   const styles = StyleSheet.create({
@@ -92,6 +96,60 @@ export default function EstablishmentProfile() {
     }
   })
 
+  const [data, setData] = useState<EstablishmentType>();
+
+
+  const [isFavorited, setIsFavorited] = React.useState(data?.is_favorited);
+  const id = 1;
+
+
+  const toggleFavorite = () => {
+
+    const toggleFavoriteEstablishment = async (state: boolean) => {
+      try {
+        const token = await AsyncStorage.getItem('@DIVOAuth:token');
+        await axios.put(`http://192.168.0.158:8080/api/establishments/${id}/${state ? 'favorite' : 'unfavorite'}/1`, [], {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+      } catch (error) {
+        console.error("Erro ao salvar item:", error);
+      }
+    }
+
+    if (isFavorited) {
+      toggleFavoriteEstablishment(false);
+      setIsFavorited(false);
+    } else {
+      toggleFavoriteEstablishment(true);
+      setIsFavorited(true);
+    }
+  }
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = await AsyncStorage.getItem('@DIVOAuth:token');
+      try {
+        const response = await axios.get('http://192.168.0.158:8080/api/establishments/1', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = response.data;
+        setData(data);
+        setIsFavorited(data.is_favorited);
+      } catch (error) {
+        console.error("Erro ao buscar estabelecimento:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <ScrollView>
       <Card style={styles.card}>
@@ -101,17 +159,19 @@ export default function EstablishmentProfile() {
             <Text style={{
               fontSize: 12,
               fontWeight: 'bold',
-             
-            }} variant='bodyMedium'>4.2</Text>
+
+            }} variant='bodyMedium'>{data?.overall_rating.toFixed(1)}</Text>
           </Chip>
         </View>
 
         <IconButton
           style={styles.iconButton}
-          icon="heart-outline"
+          icon={
+            isFavorited ? 'heart' : 'heart-outline'
+          }
           mode='contained'
           size={20}
-          onPress={() => console.log('Pressed')}
+          onPress={toggleFavorite}
         />
 
         <Card.Cover style={styles.cardCover} source={{ uri: 'https://picsum.photos/700' }} />
@@ -119,23 +179,23 @@ export default function EstablishmentProfile() {
           <Text variant="titleLarge" style={{
             fontSize: 20,
             fontWeight: 'bold',
-          }}>Bar do zé</Text>
+          }}>{data?.name}</Text>
           <Text style={{
             fontSize: 12,
             fontWeight: 'bold',
             color: 'gray'
-          }} variant="bodyMedium">Aberto de 12h - 21h</Text>
+          }} variant="bodyMedium">Aberto de {data?.opening_start.slice(0, 5)} - {data?.opening_close.slice(0, 5)}</Text>
 
-          <Chip style={{            
+          <Chip style={{
             marginTop: 10,
             backgroundColor: useTheme().colors.primary,
           }}>
             <Text style={{
               fontSize: 12,
               fontWeight: 'normal',
-              color: 'white',              
+              color: 'white',
             }} variant='bodyMedium'>
-              650, R. Des. Pedro Silva - Comerciario, Criciúma - SC, 88802-300
+              {data?.address?.street}, {data?.address?.number} - {data?.address?.neighborhood}, {data?.address?.city} - {data?.address?.state}, {data?.address?.zip}
             </Text>
           </Chip>
         </Card.Content>
@@ -143,13 +203,13 @@ export default function EstablishmentProfile() {
         <ScrollView contentContainerStyle={styles.imageGrid}>
           <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
           <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-          <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />          
+          <Image source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
         </ScrollView>
       </Card>
 
       <View style={{
         display: 'flex',
-        flexDirection: 'column',                
+        flexDirection: 'column',
         padding: 10,
         marginTop: 30,
         marginBottom: 10,
@@ -165,8 +225,8 @@ export default function EstablishmentProfile() {
           color: 'gray'
         }} variant="bodyMedium">Catálogo de produtos</Text>
       </View>
-     
-     <GridProducts />
+
+      <GridProducts />
 
     </ScrollView>
   );

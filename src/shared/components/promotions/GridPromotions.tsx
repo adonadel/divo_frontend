@@ -1,52 +1,34 @@
 import { ScrollView, View } from "react-native";
 import { CardPromotions } from "./CardPromotions";
+import { useEffect, useState } from "react";
+import { ProductsType } from "../products/ProductsType";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const GridPromotions = () => {
+    const [data, setData] = useState<ProductsType[]>([]);        
 
-    const data = [
-        {
-            name: 'Promotion 1',
-            value: 100,
-            description: 'Description 1',
-            imageSrc: 'https://picsum.photos/700',           
-        },
-        {
-            name: 'Promotion 2',
-            value: 200,
-            description: 'Description 2',
-            imageSrc: 'https://picsum.photos/700',
-            promotion: {
-                percent: 10,
-                description: 'Promotion 2',
-                dateStart: new Date(),
-                dateFinish: new Date(),
+    const establishmentId = 1;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = await AsyncStorage.getItem('@DIVOAuth:token');
+            try {
+                const response = await axios.get('http://192.168.0.158:8080/api/establishments/1/products', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                
+                const data = response.data;                
+                setData(data);                    
+            } catch (error) {
+                console.error("Erro ao buscar produtos:", error);
             }
-        },
-        {
-            name: 'Promotion 3',
-            value: 300,
-            description: 'Description 3',
-            imageSrc: 'https://picsum.photos/700',
-            promotion: {
-                percent: 10,
-                description: 'Promotion 3',
-                dateStart: new Date(),
-                dateFinish: new Date(),
-            }
-        },
-        {
-            name: 'Promotion 4',
-            value: 400,
-            description: 'Description 4',
-            imageSrc: 'https://picsum.photos/700',
-            promotion: {
-                percent: 10,
-                description: 'Promotion 4',
-                dateStart: new Date(),
-                dateFinish: new Date(),
-            }
-        },               
-    ]
+        };
+        
+        fetchData();            
+    }, []);
 
     return (
         <ScrollView>

@@ -1,14 +1,10 @@
+import { EstablishmentType } from "../establishment/EstablishmentType";
+
 interface PromotionType {
     percent: number;    
     description: string;
     dateStart: Date;    
     dateFinish: Date;
-}
-
-interface EstablishmentType {
-    name: string;
-    profileSrc: string;
-    ratting: number;
 }
 
 export interface ProductsType {
