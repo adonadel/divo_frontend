@@ -2,13 +2,16 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Chip, IconButton, Text } from 'react-native-paper';
 import { EstablishmentType } from './EstablishmentType';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const CardEstablishment = (props : EstablishmentType) => {
-    
+const CardEstablishment = (props: EstablishmentType) => {
+
     const styles = StyleSheet.create({
         card: {
             width: '100%',
             position: 'relative',
+            backgroundColor: 'white',
         },
         cardContent: {
             display: 'flex',
@@ -74,31 +77,73 @@ const CardEstablishment = (props : EstablishmentType) => {
         }
     })
 
+
+    const [isFavorited, setIsFavorited] = React.useState(props.is_favorited);
+
+
     const toggleFavorite = () => {
-        console.log('Favorite');
+
+        const toggleFavoriteEstablishment = async (state: boolean) => {
+            try {
+                const token = await AsyncStorage.getItem('@DIVOAuth:token');
+                await axios.put(`http://192.168.0.158:8080/api/establishments/${props.id}/${state ? 'favorite' : 'unfavorite'}/1`, [], {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+            } catch (error) {
+                console.error("Erro ao salvar item:", error);
+            }
+        }
+
+        if (isFavorited) {
+            toggleFavoriteEstablishment(false);
+            setIsFavorited(false);
+        } else {
+            toggleFavoriteEstablishment(true);
+            setIsFavorited(true);
+        }
     }
 
     return (
         <Card style={styles.card}>
             <View style={styles.profile}>
-                <Avatar.Image style={styles.avatar} size={60} source={{ uri: props.profileSrc }} />
+                {
+                    props.medias &&
+                    <Avatar.Image style={styles.avatar} size={60} source={{ uri: props.medias[0]?.fileName ? props.medias[0]?.fileName : 'https://designportugal.net/wp-content/uploads/2016/04/m-mcdonalds.jpg' }} />
+                }
+
+                {
+                    !props.medias &&
+                    <Avatar.Image style={styles.avatar} size={60} source={{ uri: 'https://designportugal.net/wp-content/uploads/2016/04/m-mcdonalds.jpg' }} />
+                }
                 <Chip style={styles.iconChip} icon="star">
                     <Text style={{
                         fontSize: 12,
                         fontWeight: 'bold',
-                    }} variant='bodyMedium'>{props.rating}</Text>
+                    }} variant='bodyMedium'>{props.overall_rating?.toFixed(1)}</Text>
                 </Chip>
             </View>
 
             <IconButton
                 style={styles.iconButton}
-                icon={props.favorite ? 'heart' : 'heart-outline'}
+                icon={isFavorited ? 'heart' : 'heart-outline'}
                 mode='contained'
                 size={20}
                 onPress={toggleFavorite}
             />
 
-            <Card.Cover style={styles.cardCover} source={{ uri: props.mediaSrc }} />
+            {
+                props.medias &&
+                <Card.Cover style={styles.cardCover} source={{ uri: props.medias[1]?.fileName ? props.medias[1]?.fileName : 'https://veja.abril.com.br/wp-content/uploads/2018/02/mclanche-feliz.jpg?quality=90&strip=info&w=720&h=440&crop=1' }} />
+            }
+
+            {
+                !props.medias &&
+                <Card.Cover style={styles.cardCover} source={{ uri: 'https://veja.abril.com.br/wp-content/uploads/2018/02/mclanche-feliz.jpg?quality=90&strip=info&w=720&h=440&crop=1' }} />
+            }
+
             <Card.Content style={styles.cardContent}>
                 <Text variant="titleLarge" style={{
                     fontSize: 15,
@@ -108,7 +153,7 @@ const CardEstablishment = (props : EstablishmentType) => {
                     fontSize: 12,
                     fontWeight: 'bold',
                     color: 'gray'
-                }} variant="bodyMedium">Aberto de {props.openHours}</Text>
+                }} variant="bodyMedium">Aberto de {props.opening_start.slice(0,5)} - {props.opening_close.slice(0,5)}</Text>
             </Card.Content>
             <Card.Actions style={styles.cardActions}>
                 <Button mode="contained" style={styles.cardButton}>
