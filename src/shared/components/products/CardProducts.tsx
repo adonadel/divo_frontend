@@ -76,7 +76,7 @@ export const CardProducts = (props: ProductsType) => {
     return (
         <Card style={styles.card}>
                       
-            <Card.Cover style={styles.cardCover} source={{ uri: props.establishment?.medias?.[0]?.fileName}} />
+            <Card.Cover style={styles.cardCover} source={{ uri: props.medias?.[0]?.fileName}} />
             
             {
                 props.promotion &&
